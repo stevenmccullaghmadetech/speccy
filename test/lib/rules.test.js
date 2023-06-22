@@ -7,7 +7,7 @@ let activeRule, disabledRule, negativelyEnabledRule;
 beforeEach(() => {
     activeRule = { name: "active-rule", disabled: false };
     disabledRule = { name: "disabled-rule", disabled: true };
-    negativelyEnabledRule = { name: "negatively-enabled-rule", enabled: false };
+    negativelyEnabledRule = { name: "negatively-enabled-rule", disabled: true };
 });
 
 describe('Rules', () => {

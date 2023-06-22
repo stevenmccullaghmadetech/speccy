@@ -1,16 +1,8 @@
 # speccy
 
-[![CircleCI](https://circleci.com/gh/wework/speccy.svg?style=svg)](https://circleci.com/gh/wework/speccy)
-[![Coverage Status](https://coveralls.io/repos/github/wework/speccy/badge.svg)](https://coveralls.io/github/wework/speccy)
-[![Known Vulnerabilities](https://snyk.io/test/npm/speccy/badge.svg)](https://snyk.io/test/npm/speccy)
-
 Make sure your OpenAPI 3.0 specifications are more than just valid, make sure they're useful!
 
-Taking off from where [Mike Ralphson] started with linting in [swagger2openapi], Speccy aims to become the [rubocop] or [eslint] of OpenAPI.
-
-## Requirements
-
-- **NodeJS:** v8 - v10
+Forked from https://github.com/wework/speccy
 
 ## OpenAPI Specification
 
@@ -106,25 +98,6 @@ Starting with the fantastic resolver logic form swagger2openapi, speccy has one 
 resolvers out there. It avoid cyclical dependencies (when A has a property that `$ref`s A, which in turn destroys your CPU), and all sorts of other things.
 
 Thanks to the `--json-schema` switch, you can have an OpenAPI file which `$ref`s JSON Schema files (not just OpenAPI-flavoured JSON Schema), then resolve them all into one real OpenAPI file, thanks to [wework/json-schema-to-openapi-schema].
-
-### Serve Command
-
-Using [ReDoc], speccy can offer a preview of your specifications, in human-readable format.
-In the future we'll have speccy outlining improvements right in here, but one thing at a time.
-
-```
-Usage: serve [options] <file-or-url>
-
-view specifications in beautiful human readable documentation
-
-Options:
-
-  -p, --port [value]  port on which the server will listen (default: 5000)
-  -q, --quiet         reduce verbosity
-  -j, --json-schema   treat $ref like JSON Schema and convert to OpenAPI Schema Objects
-  -v, --verbose       set verbosity (use multiple times to increase level)
-  -h, --help          output usage information
-```
 
 ### Config File
 

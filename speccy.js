@@ -8,7 +8,6 @@ const program = require('commander');
 const { version } = require('./package.json');
 const lint = require('./lint.js');
 const resolve = require('./resolve.js');
-const serve = require('./serve.js');
 
 function collect(val, item) {
     item.push(val);
@@ -54,24 +53,6 @@ program
     .action((specFile, cmd) => {
         resolve.command(specFile, cmd)
             .then(() => { process.exit(0) })
-            .catch((err) => {
-                if (err) {
-                    console.error(err.message);
-                }
-                process.exit(1);
-            });
-    });
-
-program
-    .command('serve [file-or-url]')
-    .description('view specifications in beautiful human readable documentation')
-    .option('-p, --port [value]', 'port on which the server will listen (default: 5000)')
-    .option('-q, --quiet', 'reduce verbosity')
-    .option('-j, --json-schema', 'treat $ref like JSON Schema and convert to OpenAPI Schema Objects (default: false)')
-    .option('-v, --verbose', 'increase verbosity', increaseVerbosity, 1)
-    // TODO .option('-w, --watch', 'reloading browser on spec file changes')
-    .action((specFile, cmd) => {
-        serve.command(specFile, cmd)
             .catch((err) => {
                 if (err) {
                     console.error(err.message);
