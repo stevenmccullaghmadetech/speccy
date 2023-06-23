@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "commander": "^2.18.0",
-    "ejs": "^2.5.2",
+    "ejs": "^3.1.9",
     "express": "^4.14.0",
     "json-schema-to-openapi-schema": "^0.3.0",
     "nconf": "^0.10.0",
