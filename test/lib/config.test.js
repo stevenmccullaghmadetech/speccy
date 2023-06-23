@@ -6,7 +6,9 @@ describe('Config', () => {
     describe('init()', () => {
         test('does not throw for invalid file', () => {
             const configFile = 'test/fixtures/config/doesnotexist.yaml';
-            const f = () => { config.init({ parent: { config: configFile } }); };
+            const f = () => {
+                config.init({ parent: { config: configFile } });
+            };
             expect(f).not.toThrow();
         });
 
@@ -40,7 +42,9 @@ describe('Config', () => {
             });
 
             test('meaningless empty arrays in default config must not override options of config file', () => {
-                config.init({parent: {config: configFile, rules: [], skip: []}});
+                config.init({
+                    parent: { config: configFile, rules: [], skip: [] },
+                });
 
                 expect(config.get('lint:rules')).toEqual([
                     'strict',
@@ -48,9 +52,7 @@ describe('Config', () => {
                     'https://example.org/my-rules.json',
                 ]);
 
-                expect(config.get('lint:skip')).toEqual([
-                    'info-contact',
-                ]);
+                expect(config.get('lint:skip')).toEqual(['info-contact']);
             });
         });
     });
@@ -68,7 +70,7 @@ describe('Config', () => {
 
             describe('and config options are supplied', () => {
                 test('with an empty file', () => {
-                    config.load(configFile, { foo: { bar: 123 }});
+                    config.load(configFile, { foo: { bar: 123 } });
                     expect(config.get('foo:bar')).toBe(123);
                 });
             });
@@ -86,8 +88,8 @@ describe('Config', () => {
                     rules: ['foo'],
                     port: 5555,
                     parent: {
-                        config: configFile
-                    }
+                        config: configFile,
+                    },
                 });
 
                 expect(config.get('serve:port')).toBe(5555);
@@ -96,7 +98,6 @@ describe('Config', () => {
                 expect(config.get('lint:rules')).toEqual(['foo']);
                 expect(config.get('lint:skip')).toEqual(['info-contact']);
             });
-
         });
     });
 });

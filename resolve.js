@@ -23,9 +23,10 @@ const command = async (file, cmd) => {
 
     return new Promise((resolve, reject) => {
         if (output) {
-            fs.writeFile(output, content, 'utf8', err => {
+            fs.writeFile(output, content, 'utf8', (err) => {
                 if (err) {
-                    if (verbose) console.error('Failed to write file: ' + err.message);
+                    if (verbose)
+                        console.error('Failed to write file: ' + err.message);
                     reject();
                 } else {
                     if (verbose) console.error('Resolved to ' + output);
@@ -54,8 +55,8 @@ const buildLoaderOptions = (jsonSchema, verbose, internalRefs) => {
     };
     if (jsonSchema) options.filters.push(fromJsonSchema);
     if (internalRefs) options.resolveInternal = true;
-    
+
     return options;
-}
+};
 
 module.exports = { command };

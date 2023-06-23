@@ -1,0 +1,12 @@
+module.exports = {
+    root: true,
+    extends: ['eslint:recommended'],
+    parserOptions: {
+        ecmaVersion: 2020,
+    },
+    env: {
+        es6: true,
+        node: true,
+        jest: true,
+    },
+};

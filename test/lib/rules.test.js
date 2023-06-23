@@ -5,9 +5,9 @@ const rules = require('../../lib/rules.js');
 let activeRule, disabledRule, negativelyEnabledRule;
 
 beforeEach(() => {
-    activeRule = { name: "active-rule", disabled: false };
-    disabledRule = { name: "disabled-rule", disabled: true };
-    negativelyEnabledRule = { name: "negatively-enabled-rule", disabled: true };
+    activeRule = { name: 'active-rule', disabled: false };
+    disabledRule = { name: 'disabled-rule', disabled: true };
+    negativelyEnabledRule = { name: 'negatively-enabled-rule', disabled: true };
 });
 
 describe('Rules', () => {
@@ -17,7 +17,9 @@ describe('Rules', () => {
                 rules.init();
                 rules.createNewRule(activeRule);
                 expect(rules.getRules().rules).toHaveLength(1);
-                expect(rules.getRules().rules[0].url).toBe('https://speccy.io/rules/1-rulesets');
+                expect(rules.getRules().rules[0].url).toBe(
+                    'https://speccy.io/rules/1-rulesets'
+                );
             });
 
             test('skips a disabled rule', () => {
@@ -46,7 +48,9 @@ describe('Rules', () => {
                 expect(rules.getRules().rules).toHaveLength(1);
 
                 // inheriting a rule with the same name but disabled
-                rules.createNewRule(Object.assign({}, activeRule, {disabled: true}));
+                rules.createNewRule(
+                    Object.assign({}, activeRule, { disabled: true })
+                );
                 expect(rules.getRules().rules).toHaveLength(0);
             });
         });

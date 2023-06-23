@@ -8,7 +8,7 @@ const commandConfig = {
     quiet: false,
     verbose: false,
     rules: [],
-    skip: []
+    skip: [],
 };
 
 beforeEach(() => {
@@ -23,12 +23,16 @@ describe('Lint command', () => {
             const warnSpy = jest.spyOn(console, 'warn');
             const errorSpy = jest.spyOn(console, 'error');
 
-            return lint.command('./test/fixtures/loader/openapi.yaml', commandConfig).then(() => {
-                expect(logSpy).toBeCalledTimes(1);
-                expect(logSpy.mock.calls[0][0]).toEqual('\x1b[32mSpecification is valid, with 0 lint errors\x1b[0m');
-                expect(warnSpy).toBeCalledTimes(0);
-                expect(errorSpy).toBeCalledTimes(0);
-            });
+            return lint
+                .command('./test/fixtures/loader/openapi.yaml', commandConfig)
+                .then(() => {
+                    expect(logSpy).toBeCalledTimes(1);
+                    expect(logSpy.mock.calls[0][0]).toEqual(
+                        '\x1b[32mSpecification is valid, with 0 lint errors\x1b[0m'
+                    );
+                    expect(warnSpy).toBeCalledTimes(0);
+                    expect(errorSpy).toBeCalledTimes(0);
+                });
         });
 
         test('displays a validation error on invalid key', () => {
@@ -37,12 +41,19 @@ describe('Lint command', () => {
             const warnSpy = jest.spyOn(console, 'warn');
             const errorSpy = jest.spyOn(console, 'error');
 
-            return lint.command('./test/fixtures/integration/invalid-key.yaml', commandConfig).catch(() => {
-                expect(logSpy).toBeCalledTimes(0);
-                expect(warnSpy).toBeCalledTimes(0);
-                expect(errorSpy).toBeCalledTimes(2);
-                expect(errorSpy).toHaveBeenCalledWith('\x1b[31mSpecification schema is invalid.\x1b[0m');
-            });
+            return lint
+                .command(
+                    './test/fixtures/integration/invalid-key.yaml',
+                    commandConfig
+                )
+                .catch(() => {
+                    expect(logSpy).toBeCalledTimes(0);
+                    expect(warnSpy).toBeCalledTimes(0);
+                    expect(errorSpy).toBeCalledTimes(2);
+                    expect(errorSpy).toHaveBeenCalledWith(
+                        '\x1b[31mSpecification schema is invalid.\x1b[0m'
+                    );
+                });
         });
 
         test('displays a validation error on missing reference', () => {
@@ -51,12 +62,19 @@ describe('Lint command', () => {
             const warnSpy = jest.spyOn(console, 'warn');
             const errorSpy = jest.spyOn(console, 'error');
 
-            return lint.command('./test/fixtures/integration/missing-ref.yaml', commandConfig).catch(() => {
-                expect(logSpy).toBeCalledTimes(0);
-                expect(warnSpy).toBeCalledTimes(0);
-                expect(errorSpy).toBeCalledTimes(2);
-                expect(errorSpy).toHaveBeenCalledWith('\x1b[31mSpecification schema is invalid.\x1b[0m');
-            });
+            return lint
+                .command(
+                    './test/fixtures/integration/missing-ref.yaml',
+                    commandConfig
+                )
+                .catch(() => {
+                    expect(logSpy).toBeCalledTimes(0);
+                    expect(warnSpy).toBeCalledTimes(0);
+                    expect(errorSpy).toBeCalledTimes(2);
+                    expect(errorSpy).toHaveBeenCalledWith(
+                        '\x1b[31mSpecification schema is invalid.\x1b[0m'
+                    );
+                });
         });
     });
 
@@ -67,13 +85,20 @@ describe('Lint command', () => {
             const warnSpy = jest.spyOn(console, 'warn');
             const errorSpy = jest.spyOn(console, 'error');
 
-            return lint.command('./test/fixtures/integration/missing-contact.yaml', commandConfig).catch(() => {
-                expect(logSpy).toBeCalledTimes(0);
-                expect(warnSpy).toBeCalledTimes(1);
-                expect(errorSpy).toBeCalledTimes(1);
-                expect(errorSpy.mock.calls[0][0]).toEqual('\x1b[31mSpecification contains lint errors: 1\x1b[0m');
-                expect(warnSpy.mock.calls[0][0]).toContain('info-contact');
-            });
+            return lint
+                .command(
+                    './test/fixtures/integration/missing-contact.yaml',
+                    commandConfig
+                )
+                .catch(() => {
+                    expect(logSpy).toBeCalledTimes(0);
+                    expect(warnSpy).toBeCalledTimes(1);
+                    expect(errorSpy).toBeCalledTimes(1);
+                    expect(errorSpy.mock.calls[0][0]).toEqual(
+                        '\x1b[31mSpecification contains lint errors: 1\x1b[0m'
+                    );
+                    expect(warnSpy.mock.calls[0][0]).toContain('info-contact');
+                });
         });
     });
 
@@ -103,12 +128,17 @@ describe('Lint command', () => {
                 expect(logSpy).toBeCalledTimes(0);
                 expect(warnSpy).toBeCalledTimes(0);
                 expect(errorSpy).toBeCalledTimes(2);
-                expect(errorSpy).toHaveBeenCalledWith('\x1b[31mSpecification schema is invalid.\x1b[0m');
+                expect(errorSpy).toHaveBeenCalledWith(
+                    '\x1b[31mSpecification schema is invalid.\x1b[0m'
+                );
             });
         });
 
         test('expect errors on lint of invalid input', () => {
-            const spec = fs.readFileSync('./test/fixtures/integration/invalid-key.yaml', 'utf8');
+            const spec = fs.readFileSync(
+                './test/fixtures/integration/invalid-key.yaml',
+                'utf8'
+            );
             process.nextTick(function mockResponse() {
                 stdin.send(spec, 'utf8').end();
             });
@@ -118,16 +148,26 @@ describe('Lint command', () => {
             const warnSpy = jest.spyOn(console, 'warn');
             const errorSpy = jest.spyOn(console, 'error');
 
-            return lint.command('./test/fixtures/integration/invalid-key.yaml', commandConfig).catch(() => {
-                expect(logSpy).toBeCalledTimes(0);
-                expect(warnSpy).toBeCalledTimes(0);
-                expect(errorSpy).toBeCalledTimes(2);
-                expect(errorSpy).toHaveBeenCalledWith('\x1b[31mSpecification schema is invalid.\x1b[0m');
-            });
+            return lint
+                .command(
+                    './test/fixtures/integration/invalid-key.yaml',
+                    commandConfig
+                )
+                .catch(() => {
+                    expect(logSpy).toBeCalledTimes(0);
+                    expect(warnSpy).toBeCalledTimes(0);
+                    expect(errorSpy).toBeCalledTimes(2);
+                    expect(errorSpy).toHaveBeenCalledWith(
+                        '\x1b[31mSpecification schema is invalid.\x1b[0m'
+                    );
+                });
         });
 
         test('expect no errors on lint of valid input', () => {
-            const spec = fs.readFileSync('./test/fixtures/loader/openapi.yaml', 'utf8');
+            const spec = fs.readFileSync(
+                './test/fixtures/loader/openapi.yaml',
+                'utf8'
+            );
             process.nextTick(function mockResponse() {
                 stdin.send(spec, 'utf8').end();
             });
@@ -140,7 +180,9 @@ describe('Lint command', () => {
             // pass null as spec, it will be read from stdin
             return lint.command(null, commandConfig).then(() => {
                 expect(logSpy).toBeCalledTimes(1);
-                expect(logSpy.mock.calls[0][0]).toEqual('\x1b[32mSpecification is valid, with 0 lint errors\x1b[0m');
+                expect(logSpy.mock.calls[0][0]).toEqual(
+                    '\x1b[32mSpecification is valid, with 0 lint errors\x1b[0m'
+                );
                 expect(warnSpy).toBeCalledTimes(0);
                 expect(errorSpy).toBeCalledTimes(0);
             });

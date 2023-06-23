@@ -21,19 +21,39 @@ function increaseVerbosity(v, total) {
 program
     .version(version)
     .usage('<command>')
-    .option('-c, --config [configFile]', 'config file (containing JSON/YAML). See README for potential values.');
+    .option(
+        '-c, --config [configFile]',
+        'config file (containing JSON/YAML). See README for potential values.'
+    );
 
 program
     .command('lint [file-or-url]')
-    .description('ensure specs are not just valid OpenAPI, but lint against specified rules. If no argument is passed, then standard input will be used (please note that in this case the provided spec must be fully resolved)')
+    .description(
+        'ensure specs are not just valid OpenAPI, but lint against specified rules. If no argument is passed, then standard input will be used (please note that in this case the provided spec must be fully resolved)'
+    )
     .option('-q, --quiet', 'reduce verbosity')
-    .option('-r, --rules [ruleFile]', 'provide multiple rules files', collect, [])
-    .option('-s, --skip [ruleName]', 'provide multiple rules to skip', collect, [])
-    .option('-j, --json-schema', 'treat $ref like JSON Schema and convert to OpenAPI Schema Objects (default: false)')
+    .option(
+        '-r, --rules [ruleFile]',
+        'provide multiple rules files',
+        collect,
+        []
+    )
+    .option(
+        '-s, --skip [ruleName]',
+        'provide multiple rules to skip',
+        collect,
+        []
+    )
+    .option(
+        '-j, --json-schema',
+        'treat $ref like JSON Schema and convert to OpenAPI Schema Objects (default: false)'
+    )
     .option('-v, --verbose', 'increase verbosity', increaseVerbosity, 1)
     .action((specFile, cmd) => {
         lint.command(specFile, cmd)
-            .then(() => { process.exit(0) })
+            .then(() => {
+                process.exit(0);
+            })
             .catch((err) => {
                 if (err) {
                     console.error(err.message);
@@ -47,12 +67,21 @@ program
     .description('pull in external $ref files to create one mega-file')
     .option('-o, --output <file>', 'file to output to')
     .option('-q, --quiet', 'reduce verbosity')
-    .option('-j, --json-schema', 'treat $ref like JSON Schema and convert to OpenAPI Schema Objects (default: false)')
-    .option('-i, --internal-refs', 'resolve internal references (default: false)')
+    .option(
+        '-j, --json-schema',
+        'treat $ref like JSON Schema and convert to OpenAPI Schema Objects (default: false)'
+    )
+    .option(
+        '-i, --internal-refs',
+        'resolve internal references (default: false)'
+    )
     .option('-v, --verbose', 'increase verbosity', increaseVerbosity, 1)
     .action((specFile, cmd) => {
-        resolve.command(specFile, cmd)
-            .then(() => { process.exit(0) })
+        resolve
+            .command(specFile, cmd)
+            .then(() => {
+                process.exit(0);
+            })
             .catch((err) => {
                 if (err) {
                     console.error(err.message);
